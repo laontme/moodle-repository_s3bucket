@@ -388,10 +388,13 @@ class repository_s3bucket extends repository {
             if (empty($accesskey)) {
                 throw new \moodle_exception('needaccesskey', 'repository_s3');
             }
-            $arr = self::addproxy([
+            $arr = self::addproxy(
+              [
                 'credentials' => ['key' => $accesskey, 'secret' => $this->get_option('secret_key')],
-                'region' => $this->get_option('endpoint')]);
-            $this->_s3client = \Aws\S3\S3Client::factory($arr);
+                'use_path_style_endpoint' => true,
+                'region' => $this->get_option('endpoint')
+              ]
+            );
         }
         return $this->_s3client;
     }
