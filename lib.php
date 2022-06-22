@@ -395,6 +395,7 @@ class repository_s3bucket extends repository {
                 'region' => $this->get_option('endpoint')
               ]
             );
+            $this->_s3client = \Aws\S3\S3Client::factory($arr);
         }
         return $this->_s3client;
     }
